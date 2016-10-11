@@ -26,7 +26,7 @@ if (!require("devtools"))
 devtools::install_github("ChongWu-Biostat/GLMaSPU")
 ```
 
-## Using prclust
+## Using aSPU
 Several tests for high dimensional generalized linear models have been proposed recently, however, they are mainly based on a sum of squares of the score vector and only powerful under certain limited alternative hypotheses. In practice, since the signals in true alternative hypothesis may be sparse or dense or between, the existing tests may not be powerful. In this package, we implement an adaptive test that maintains high power across a wide range of scenarios. To calculate its p-value, its asymptotic null distribution is derived. For more details, see the following two papers.
 
 * Pan, W., Kim, J., Zhang, Y., Shen, X., & Wei, P. (2014). A powerful and adaptive association test for rare variants. *Genetics*, 197(4), 1081-1095.
