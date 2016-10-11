@@ -1,0 +1,14 @@
+Package: GLMaSPU
+Type: Package
+Title: An Adaptive test on high dimensional parameters in generalized linear models
+Version: 1.0
+Date: 2016-10-10
+Author: Chong Wu and Wei Pan
+Maintainer: Chong Wu <wuxx0845@umn.edu>
+Description: Several tests for high dimensional generalized linear models have been proposed recently. In this package, we implemented a new test called aSPU for high dimensional generalized linear models, which is often more powerful than the existing methods in a wide scenarios. We also implemented permutation based version of several existing methods for research purpose. We recommend users use the aSPU test for their real testing problem. 
+License: GPL-2
+Imports:
+    Rcpp (>= 0.12.6)
+Depends: mvnfast,mvtnorm
+LinkingTo: Rcpp, RcppArmadillo
+RoxygenNote: 5.0.1
