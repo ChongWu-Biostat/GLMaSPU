@@ -37,7 +37,8 @@ s = 0.15
 signal.r = 0.08
 seed = 2
 non.zero = floor(p * s)
-dat = generate_data(seed, n = n, p = p, beta = beta,alpha = c(rep(signal.r,non.zero),rep(0,p-non.zero)))
+alpha = c(rep(signal.r,non.zero),rep(0,p-non.zero))
+dat = generate_data(seed, n = n, p = p, beta = beta,alpha = alpha)
 cov = dat$Z
 X = dat$X
 Y = dat$Y

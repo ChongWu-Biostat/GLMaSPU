@@ -20,7 +20,8 @@
 #' @author Chong Wu and Wei Pan
 #'
 #' @references
-#' Goeman, J. J., H. C. Van Houwelingen, and L. Finos (2011). Testing against a high- dimensional alternative in the generalized linear model: asymptotic type i error control. Biometrika 98(2), 381–390.
+#' Goeman, J. J., Van Houwelingen, H. C. and Finos, L. (2011). Testing against a high-dimensional
+#' alternative in the generalized linear model asymptotic type 1 error control. Biometrika, 98(2), 381-390.
 #'
 #' @examples
 #'
@@ -31,7 +32,8 @@
 #' signal.r = 0.08
 #' non.zero = floor(p * s)
 #' seed = 2
-#' dat = generate_data(seed, n = n, p = p, beta = beta,alpha = c(rep(signal.r,non.zero),rep(0,p-non.zero)))
+#' alpha = c(rep(signal.r,non.zero),rep(0,p-non.zero))
+#' dat = generate_data(seed, n = n, p = p, beta = beta,alpha = alpha)
 #' cov = dat$Z
 #' X = dat$X
 #' Y = dat$Y

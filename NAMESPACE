@@ -3,7 +3,7 @@ importFrom(Rcpp, evalCpp)
 import(mvnfast,
 mvtnorm)
 importFrom("stats", "as.dist", "cophenetic", "fitted.values", "glm",
-             "rgamma", "rmultinom", "rnbinom", "rnorm", "var”,"cor", "pnorm", "rbinom")
+             "rgamma", "rmultinom", "var", "rnbinom", "rnorm", "pnorm","rbinom","cor")
 
 importFrom("utils", "data")
 

@@ -1,6 +1,6 @@
 Package: GLMaSPU
 Type: Package
-Title: An Adaptive test on high dimensional parameters in generalized linear models
+Title: An Adaptive Test on High Dimensional Parameters in Generalized Linear Models
 Version: 1.0
 Date: 2016-10-10
 Author: Chong Wu and Wei Pan
