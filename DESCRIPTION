@@ -9,6 +9,6 @@ Description: Several tests for high dimensional generalized linear models have b
 License: GPL-2
 Imports:
     Rcpp (>= 0.12.6)
-Depends: mvnfast,mvtnorm
+Depends: mvtnorm, mvnfast
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 5.0.1

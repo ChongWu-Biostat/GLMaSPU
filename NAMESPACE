@@ -1,10 +1,9 @@
 useDynLib(GLMaSPU)
 importFrom(Rcpp, evalCpp)
-import(mvnfast,
-mvtnorm)
+import(mvtnorm)
 importFrom("stats", "as.dist", "cophenetic", "fitted.values", "glm",
              "rgamma", "rmultinom", "var", "rnbinom", "rnorm", "pnorm","rbinom","cor")
-
+importFrom("mvnfast", "rmvn")
 importFrom("utils", "data")
 
 export(aSPU_apval)

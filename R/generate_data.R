@@ -21,13 +21,13 @@
 #'
 #' @examples
 #'
-#' p = 200
-#' n = 100
+#' p = 100
+#' n = 50
 #' beta = c(1,3,3)
 #' s = 0.15
-#' signal.r = 0.08
+#' signal.r = 0.02
 #' non.zero = floor(p * s)
-#' seed = 2
+#' seed = 1
 #' alpha = c(rep(signal.r,non.zero),rep(0,p-non.zero))
 #' dat = generate_data(seed, n = n, p = p, beta = beta,alpha = alpha)
 #' #X, Y, cov
@@ -39,7 +39,7 @@ generate_data <- function(seed,n,p,beta, alpha) {
     Z = Z- rep(1, nrow(Z)) %*% t(colMeans(Z))
 
     sigma = diag(x = sqrt(2),p,p) %*% autocorr.mat(p = p,rho = 0.4) %*% diag(x = sqrt(2),p,p)
-    X =rmvn(n,rep(0,p),sigma = sigma,ncores = 4)
+    X = rmvn(n,rep(0,p),sigma = sigma,ncores = 4)
     X = X - rep(1, nrow(X)) %*% t(colMeans(X))
     
     intercept = beta[1]
