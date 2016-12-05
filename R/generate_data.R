@@ -39,7 +39,7 @@ generate_data <- function(seed,n,p,beta, alpha) {
     Z = Z- rep(1, nrow(Z)) %*% t(colMeans(Z))
 
     sigma = diag(x = sqrt(2),p,p) %*% autocorr.mat(p = p,rho = 0.4) %*% diag(x = sqrt(2),p,p)
-    X = rmvn(n,rep(0,p),sigma = sigma,ncores = 4)
+    X = mvrnorm(n= n,mu = rep(0,p),Sigma = sigma)
     X = X - rep(1, nrow(X)) %*% t(colMeans(X))
     
     intercept = beta[1]
