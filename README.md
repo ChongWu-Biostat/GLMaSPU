@@ -1,5 +1,5 @@
 # GLMaSPU  
-**GLMaSPU** is a new R package that makes it incredibly easy to implement some testing methods for high dimensional parameters in generalized linear models with R. 
+**GLMaSPU** is a new R package that makes it incredibly easy to implement some testing methods for high dimensional parameters in generalized linear models with R. See [www.wuchong.org/GLMaSPU.html] (www.wuchong.org/GLMaSPU.html) for details.
 
 ## Benefits
 * It provides several tests for testing high dimensional parameters in generalized linear models
