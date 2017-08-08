@@ -34,7 +34,7 @@ List HDGLMC (arma::mat X1, arma::mat r1,int nperm) {
 
 
 // [[Rcpp::export()]]
-List calcT0C (arma::mat tXUs, arma::mat yresid, arma::mat powV, int nperm) {
+Rcpp::List calcT0C (arma::mat tXUs, arma::mat yresid, arma::mat diag_cov, arma::mat powV, int nperm) {
     //const int n = X1.n_rows;
     const int npow = powV.n_rows;
     // containers
@@ -47,14 +47,14 @@ List calcT0C (arma::mat tXUs, arma::mat yresid, arma::mat powV, int nperm) {
         
         for (int j = 0; j < npow; j++) {
             if (powV(j,0) == 0) {
-                arma::mat tmpU01 = abs(U01);
+                arma::mat tmpU01 = pow(U01,2) / diag_cov;
                 T0s1(i,j) = tmpU01.max();
             } else {
                 T0s1(i,j) = accu(pow(U01,powV(j,0)));
             }
         }
     }
-    List res;
+    Rcpp::List res;
     res["T0"] =T0s1;
     
     return(res);
@@ -63,23 +63,22 @@ List calcT0C (arma::mat tXUs, arma::mat yresid, arma::mat powV, int nperm) {
 
 // we just rewrite the time consuming part in C.
 // [[Rcpp::export()]]
-List GeomanC (arma::mat X1, arma::mat r1,int nperm) {
-    //const int n = X1.n_rows;
+List GeomanC (arma::mat X1, arma::mat r1, arma::mat diagX1, int nperm) {
     // containers
     arma::mat T0s(nperm,1);
     T0s.fill(0);
+    
     
     for (int i = 0; i < nperm; i++) {
         arma::mat r10 = shuffle(r1);
         arma::mat num = r10.t() * X1 * X1.t() * r10;
         
-        arma::mat denum = r10.t() * diagmat(X1) * diagmat(X1).t() * r10;
+        arma::mat denum = r10.t() * diagX1 * diagX1.t() * r10;
         
         T0s(i,0) = num(0,0) / denum(0,0);
     }
     List res;
     res["T0s1"] =T0s;
-    res["n"] =nperm;
     return(res);
 }
 

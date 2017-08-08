@@ -27,18 +27,24 @@ aSPUboot2_perm <- function(Y, X, cov=NULL, model=c("gaussian", "binomial"), pow=
         fit1 <- glm(trait~., family = model, data=tdat1)
         yfits <- fitted.values(fit1)
         yresids <- Y - yfits
-        #       fit1res1<-summary(fit1)
-        #       sigma0<-sqrt(fit1res1$dispersion)
         
         Us <- XUs <- X
-        
-        U <- t(XUs) %*% (Y - yfits)
+        U <- t(XUs) %*% (yresids)
     }
+    
+    X.new = sweep(X,MARGIN=1,yresids,`*`)
+    sam.cov = cov(X.new)
+    
+    diag.sam.cov <- diag(sam.cov)
+    diag.sam.cov[diag.sam.cov <= 10^(-10)] <- 10^(-10)
+    
+    
+    
     # test stat's:
     Ts <- rep(0, length(pow))
     for(j in 1:length(pow)){
         if (pow[j] < Inf)
-        Ts[j] = sum(U^pow[j]) else Ts[j] = max(abs(U))
+        Ts[j] = sum(U^pow[j]) else Ts[j] = max(U^2/diag.sam.cov)
     }
     
     # bootstrap:
@@ -49,11 +55,9 @@ aSPUboot2_perm <- function(Y, X, cov=NULL, model=c("gaussian", "binomial"), pow=
             Y0 <- sample(Y, length(Y))
             #########Null score vector:
             U0 <- t(Xg) %*% (Y0-mean(Y0))
-        }
-        else{
+        } else {
             ## with nuisance parameters:
             if ( model == "gaussian") {
-                
                 Y0 <- yfits + sample(yresids, n, replace = F )
                 tdat0<-data.frame(trait=Y0, cov)
                 fit0<-glm(trait~., data=tdat0)
@@ -65,21 +69,19 @@ aSPUboot2_perm <- function(Y, X, cov=NULL, model=c("gaussian", "binomial"), pow=
                 tdat0<-data.frame(trait=Y0, cov)
                 fit0<-glm(trait~., family=model, data=tdat0)
                 yfits0<-fitted.values(fit0)
-                U0<-t(XUs) %*% (Y0 - yfits0)
+                r <- Y0 - yfits0
+                U0<-t(XUs) %*% (r)
             }
-            
         }
         
         # test stat's:
         for(j in 1:length(pow))
         if (pow[j] < Inf)
-        T0s[b, j] = sum(U0^pow[j]) else T0s[b, j] = max(abs(U0))
-        
+        T0s[b, j] = sum(U0^pow[j]) else T0s[b, j] = max(U0^2/diag.sam.cov)
     }
     
     # bootstrap-based p-values:
     #pPerm0 <- apply( matrix( rep(abs(Ts),n.perm), nrow = n.perm, byrow = T) < abs(T0s), 2, mean)
-    
     pPerm0 = rep(NA,length(pow))
     for ( j in 1:length(pow))
     {
@@ -128,19 +130,26 @@ aSPUpermC2_perm <- function(Y, X, cov = NULL, model=c("gaussian","binomial"), po
         yfits <- fitted.values(fit1)
         yresids <- Y - yfits
         
+        
         Us <- XUs <- X
-        U <- t(XUs) %*% (Y - yfits)
+        U <- t(XUs) %*% (yresids)
     }
+    X.new = sweep(X,MARGIN=1,yresids,`*`)
+    sam.cov = cov(X.new)
+    
+    diag.sam.cov <- diag(sam.cov)
+    diag.sam.cov[diag.sam.cov <= 10^(-10)] <- 10^(-10)
+    
+    
     # test stat's:
     Ts <- rep(0, length(pow))
     for(j in 1:length(pow)){
         if (pow[j] < Inf)
-        Ts[j] = sum(U^pow[j]) else Ts[j] = max(abs(U))
+        Ts[j] = sum(U^pow[j]) else Ts[j] = max(U^2/diag.sam.cov)
     }
     
-    
     pow[pow==Inf] = 0 # pass 0 as infitiy
-    T0sC <- calcT0C( t(XUs), as.matrix(yresids), as.matrix(pow), n.perm)
+    T0sC <- calcT0C( t(XUs), as.matrix(yresids),as.matrix(diag.sam.cov), as.matrix(pow), n.perm)
     
     T0s <- T0sC$T0
     pPerm0 = rep(NA,length(pow))

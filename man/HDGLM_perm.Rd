@@ -34,8 +34,8 @@ p = 200
 n = 100
 beta = c(1,3,3)
 s = 0.15
-signal.r = 0.08
-seed = 2
+signal.r = 0.02
+seed = 1
 non.zero = floor(p * s)
 alpha = c(rep(signal.r,non.zero),rep(0,p-non.zero))
 dat = generate_data(seed, n = n, p = p, beta = beta,alpha = alpha)
@@ -45,10 +45,9 @@ Y = dat$Y
 HDGLM_perm(Y, X, cov = cov, model = "gaussian",  n.perm = 1000)
 
 }
-\author{
-Chong Wu and Wei Pan
-}
 \references{
 Guo, B. and S. X. Chen (2016). Tests for high dimensional generalized linear models. Journal of the Royal Statistical Society: Series B (Statistical Methodology).
 }
-
+\author{
+Chong Wu and Wei Pan
+}

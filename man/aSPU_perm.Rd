@@ -35,9 +35,9 @@ p = 200
 n = 100
 beta = c(1,3,3)
 s = 0.15
-signal.r = 0.08
+signal.r = 0.02
 non.zero = floor(p * s)
-seed = 2
+seed = 1
 alpha = c(rep(signal.r,non.zero),rep(0,p-non.zero))
 dat = generate_data(seed, n = n, p = p, beta = beta,alpha = alpha)
 cov = dat$Z
@@ -47,12 +47,11 @@ aSPU_perm(Y, X, cov = cov, pow = c(1:6, Inf),resample = "perm", model = "gaussia
 # The p-values are similar to the asymptotic based one
 
 }
-\author{
-Chong Wu and Wei Pan
-}
 \references{
 Wei Pan, Junghi Kim, Yiwei Zhang, Xiaotong Shen and Peng Wei (2014)
 A powerful and adaptive association test for rare variants,
 Genetics, 197(4), 1081-95
 }
-
+\author{
+Chong Wu and Wei Pan
+}

@@ -36,8 +36,8 @@ n = 100
 beta = c(1,3,3)
 s = 0.15
 non.zero = floor(p * s)
-signal.r = 0.08
-seed = 2
+signal.r = 0.02
+seed = 1
 alpha = c(rep(signal.r,non.zero),rep(0,p-non.zero))
 dat = generate_data(seed, n = n, p = p, beta = beta,alpha = alpha)
 cov = dat$Z
@@ -47,10 +47,9 @@ aSPU_apval(Y, X, cov = cov, pow = c(1:6, Inf),resample = "perm", model = "gaussi
 # The p-values are similar to the resample based one
 
 }
-\author{
-Chong Wu and Wei Pan
-}
 \references{
 Chong Wu, Gongjun Xu and Wei Pan, "An Adaptive test on high dimensional parameters in generalized linear models" (Submitted)
 }
-
+\author{
+Chong Wu and Wei Pan
+}
